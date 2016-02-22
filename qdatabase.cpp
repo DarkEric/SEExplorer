@@ -26,17 +26,25 @@
 
 
 #include "qdatabase.h"
-#include "QDebug"
+#include <QDebug>
+#include <QSqlError>
+#include <QFile>
+#include <QSqlQuery>
 
 QDataBase* QDataBase::pInstance = NULL;
 
 QDataBase::QDataBase(QObject *parent) : QObject(parent)
 {
-    dbase = QSqlDatabase::addDatabase("QSQLITE");
-    dbase.setDatabaseName("SEExplorerDB.sqlite");
-    if (!dbase.open()) {
-        qDebug() << "Error open DataBase";
+    if(!QFile::exists("SEExplorerDB.sqlite"))
+    {
+        createDataBase();
+        createTables();
     }
+    else
+    {
+        connectDataBase();
+    }
+
 }
 
 QDataBase* QDataBase::getInstance(QObject *parent)
@@ -44,13 +52,45 @@ QDataBase* QDataBase::getInstance(QObject *parent)
     if(!pInstance)
     {
         pInstance = new QDataBase(parent);
-        qDebug()<<"getInstance(): Create QDataBase()\n";
     }
-    qDebug()<<"getInstance(): Return"<<pInstance<<"\n";
     return pInstance;
 }
 
 QDataBase::~QDataBase()
 {
     qDebug()<<"Destructor QDataBase()";
+}
+
+bool QDataBase::connectDataBase()
+{
+    dbase = QSqlDatabase::addDatabase("QSQLITE");
+    dbase.setDatabaseName("SEExplorerDB.sqlite");
+    if (!dbase.open()) {
+        emit QDataBaseError(dbase.lastError().text());
+        return false;
+    }
+    return true;
+}
+
+bool QDataBase::createDataBase()
+{
+    if(!connectDataBase())
+    {
+        return false;
+    }
+    return true;
+}
+
+bool QDataBase::createTables()
+{
+    QSqlQuery query;
+    QString str = "CREATE TABLE FilmNameList ("
+            "id integer PRIMARY KEY NOT NULL, "
+            "name VARCHAR(255)"
+            ");";
+    if (!query.exec(str)){
+        emit QDataBaseError(query.lastError().text());
+        return false;
+    }
+    return true;
 }

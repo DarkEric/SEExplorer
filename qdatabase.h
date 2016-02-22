@@ -30,6 +30,7 @@
 
 #include <QObject>
 #include <QSqlDatabase>
+#include <QString>
 
 class QDataBase : public QObject
 {
@@ -43,9 +44,14 @@ private:
     QDataBase* operator=(QDataBase);
     ~QDataBase();
 
+    bool connectDataBase();
+    bool createDataBase();
+    bool createTables();
+
     QSqlDatabase dbase;
 
 signals:
+    void QDataBaseError(QString Error);
 
 public slots:
 

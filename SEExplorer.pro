@@ -22,3 +22,5 @@ HEADERS  += mainwindow.h \
     qdatabase.h
 
 FORMS    += mainwindow.ui
+
+DISTFILES +=
