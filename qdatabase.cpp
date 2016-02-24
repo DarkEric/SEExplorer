@@ -29,7 +29,6 @@
 #include <QDebug>
 #include <QSqlError>
 #include <QFile>
-#include <QSqlQuery>
 
 QDataBase* QDataBase::pInstance = NULL;
 
@@ -81,16 +80,32 @@ bool QDataBase::createDataBase()
     return true;
 }
 
-bool QDataBase::createTables()
+bool QDataBase::sendingRequest(QString& str)
 {
     QSqlQuery query;
-    QString str = "CREATE TABLE FilmNameList ("
-            "id integer PRIMARY KEY NOT NULL, "
-            "name VARCHAR(255)"
-            ");";
     if (!query.exec(str)){
         emit QDataBaseError(query.lastError().text());
         return false;
     }
     return true;
+}
+
+bool QDataBase::createTables()
+{
+    QString str = "CREATE TABLE FilmList ("
+            "id integer PRIMARY KEY NOT NULL, "
+            "name VARCHAR(255), "
+            "numberSeries integer, "
+            "currentSeries integer DEFAULT 1"
+            ");";
+    return sendingRequest(str);
+}
+
+bool QDataBase::addNewData(QString &name, int number)
+{
+    QString str = "INSERT INTO FilmList "
+                  "(name,numberSeries) "
+                  "VALUES ('"+name+"', "
+                           +QString::number(number)+");";
+    return sendingRequest(str);
 }

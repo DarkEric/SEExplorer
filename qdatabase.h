@@ -31,12 +31,14 @@
 #include <QObject>
 #include <QSqlDatabase>
 #include <QString>
+#include <QSqlQuery>
 
 class QDataBase : public QObject
 {
     Q_OBJECT
 public:
     static QDataBase* getInstance(QObject *parent=0);
+    bool addNewData(QString& name, int number);
 private:
     static QDataBase* pInstance;
     explicit QDataBase(QObject *parent = 0);
@@ -44,6 +46,7 @@ private:
     QDataBase* operator=(QDataBase);
     ~QDataBase();
 
+    bool sendingRequest(QString& str);
     bool connectDataBase();
     bool createDataBase();
     bool createTables();
