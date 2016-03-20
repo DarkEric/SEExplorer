@@ -58,7 +58,7 @@ QDataBase* QDataBase::getInstance(QObject *parent)
 
 QDataBase::~QDataBase()
 {
-    qDebug()<<"Destructor QDataBase()";
+
 }
 
 bool QDataBase::connectDataBase()

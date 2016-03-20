@@ -26,6 +26,7 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "qdatabase.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -33,9 +34,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setFilmListTable();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+bool MainWindow::setFilmListTable()
+{
+    QDataBase* dbase = QDataBase::getInstance(this);
+    ui->FilmListTable->setModel(dbase->getTable());
+    return true;
 }

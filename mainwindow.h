@@ -42,6 +42,7 @@ public:
     ~MainWindow();
 
 private:
+    bool setFilmListTable();
     Ui::MainWindow *ui;
 };
 

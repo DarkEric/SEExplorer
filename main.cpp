@@ -31,7 +31,6 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    QDataBase::getInstance(&a);
     MainWindow w;
     w.show();
 
