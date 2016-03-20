@@ -29,6 +29,7 @@
 #include <QDebug>
 #include <QSqlError>
 #include <QFile>
+#include <QSqlTableModel>
 
 QDataBase* QDataBase::pInstance = NULL;
 
@@ -108,4 +109,13 @@ bool QDataBase::addNewData(QString &name, int number)
                   "VALUES ('"+name+"', "
                            +QString::number(number)+");";
     return sendingRequest(str);
+}
+
+QAbstractTableModel* QDataBase::getTable()
+{
+    QSqlTableModel* model = new QSqlTableModel(this,dbase);
+    model->setTable("FilmList");
+    model->select();
+    model->setEditStrategy(QSqlTableModel::OnFieldChange);
+    return model;
 }

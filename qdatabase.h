@@ -32,6 +32,7 @@
 #include <QSqlDatabase>
 #include <QString>
 #include <QSqlQuery>
+#include <QTableView>
 
 class QDataBase : public QObject
 {
@@ -39,6 +40,7 @@ class QDataBase : public QObject
 public:
     static QDataBase* getInstance(QObject *parent=0);
     bool addNewData(QString& name, int number);
+    QAbstractTableModel* getTable();
 private:
     static QDataBase* pInstance;
     explicit QDataBase(QObject *parent = 0);
