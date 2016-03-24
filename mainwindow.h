@@ -41,7 +41,11 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+private slots:
+    void on_addButton_clicked();
+
 private:
+    bool setFilmListTable();
     Ui::MainWindow *ui;
 };
 

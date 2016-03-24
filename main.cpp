@@ -26,6 +26,7 @@
 
 #include "mainwindow.h"
 #include <QApplication>
+#include "qdatabase.h"
 
 int main(int argc, char *argv[])
 {

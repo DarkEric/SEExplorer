@@ -26,15 +26,33 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "qdatabase.h"
+#include "addnewdialog.h"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setFilmListTable();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+bool MainWindow::setFilmListTable()
+{
+    QDataBase* dbase = QDataBase::getInstance(this);
+    ui->FilmListTable->setModel(dbase->getTable());
+    return true;
+}
+
+void MainWindow::on_addButton_clicked()
+{
+    AddNewDialog dialog(this);
+    dialog.exec();
+    setFilmListTable();
 }
