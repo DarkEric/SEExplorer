@@ -16,11 +16,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    qdatabase.cpp
+    qdatabase.cpp \
+    addnewdialog.cpp
 
 HEADERS  += mainwindow.h \
-    qdatabase.h
+    qdatabase.h \
+    addnewdialog.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    addnewdialog.ui
 
 DISTFILES +=

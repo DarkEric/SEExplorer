@@ -27,6 +27,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "qdatabase.h"
+#include "addnewdialog.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -47,4 +48,11 @@ bool MainWindow::setFilmListTable()
     QDataBase* dbase = QDataBase::getInstance(this);
     ui->FilmListTable->setModel(dbase->getTable());
     return true;
+}
+
+void MainWindow::on_addButton_clicked()
+{
+    AddNewDialog dialog(this);
+    dialog.exec();
+    setFilmListTable();
 }

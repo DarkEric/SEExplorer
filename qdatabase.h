@@ -39,7 +39,7 @@ class QDataBase : public QObject
     Q_OBJECT
 public:
     static QDataBase* getInstance(QObject *parent=0);
-    bool addNewData(QString& name, int number);
+    bool addNewData(QString name, int number);
     QAbstractTableModel* getTable();
 private:
     static QDataBase* pInstance;

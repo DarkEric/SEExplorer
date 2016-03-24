@@ -102,7 +102,7 @@ bool QDataBase::createTables()
     return sendingRequest(str);
 }
 
-bool QDataBase::addNewData(QString &name, int number)
+bool QDataBase::addNewData(QString name, int number)
 {
     QString str = "INSERT INTO FilmList "
                   "(name,numberSeries) "
